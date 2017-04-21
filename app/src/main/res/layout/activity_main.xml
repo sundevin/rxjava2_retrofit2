@@ -11,7 +11,7 @@
         android:id="@+id/bt_get_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="非rest ful标准的Get请求"
+        android:text="非restful风格的Get请求"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp" />
 
@@ -21,7 +21,7 @@
         android:id="@+id/bt_get_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="test ful标准的Get请求"
+        android:text="restful风格的Get请求"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp" />
 

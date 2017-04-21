@@ -54,7 +54,8 @@ public class MainActivity extends RxAppCompatActivity {
         btGet1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ServiceManager.getApiService()
+                ServiceManager
+                        .getApiService()
                         .testGet1()
                         .compose(SchedulerTransformer.<String>transformer())//线程转换
                         .compose(MainActivity.this.<String>bindToLifecycle())//绑定生命周期，防止内存泄露
@@ -88,7 +89,8 @@ public class MainActivity extends RxAppCompatActivity {
         btGet2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ServiceManager.getApiService()
+                ServiceManager
+                        .getApiService()
                         .testGet2()
                         .compose(MainActivity.this.<HttpResponseResult<List<String>>>bindToLifecycle())
                         .compose(ResultTransformer.<List<String>>transformer())
@@ -112,7 +114,8 @@ public class MainActivity extends RxAppCompatActivity {
                 map.put("logisticsid", 20);
                 map.put("logisticsno", "1000817443587");
 
-                ServiceManager.getApiService()
+                ServiceManager
+                        .getApiService()
                         .getLogisticsInfo(map)
                         .compose(MainActivity.this.<HttpResponseResult<LogisticsInfo>>bindToLifecycle())
                         .compose(ResultTransformer.<LogisticsInfo>transformer())
@@ -120,7 +123,6 @@ public class MainActivity extends RxAppCompatActivity {
                         .subscribe(new BaseObserver<LogisticsInfo>() {
                             @Override
                             protected void onSuccess(LogisticsInfo logisticsInfo) {
-
                                 Logger.e(logisticsInfo.toString());
 
                             }

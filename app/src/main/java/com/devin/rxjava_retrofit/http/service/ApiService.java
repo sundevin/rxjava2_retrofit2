@@ -45,7 +45,6 @@ public interface ApiService {
     Observable<String> testGet1();
 
     /**
-     *
      *testGet2
      * @return
      */

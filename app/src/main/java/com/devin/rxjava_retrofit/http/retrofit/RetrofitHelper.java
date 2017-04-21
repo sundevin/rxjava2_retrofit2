@@ -24,7 +24,7 @@ public class RetrofitHelper {
         retrofit = new Retrofit.Builder()
                 .baseUrl(ApiService.BASE_URL)
                 .client(OkHttpHelper.getClient())
-                .addConverterFactory(StringConverterFactory.create())
+                .addConverterFactory(StringConverterFactory.create()) //String 转换
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .validateEagerly(true)
