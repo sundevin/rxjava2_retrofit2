@@ -17,9 +17,8 @@ public class HeaderInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
 
         Request request = chain.request().newBuilder()
-                .addHeader("yx", "")
-                .addHeader("Authorization",
-                        "Token a327153bb6a854f244a05ccf5025a2266257a0f8")
+//                .addHeader()
+                // add header...
                 .build();
 
         return chain.proceed(request);

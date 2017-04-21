@@ -1,7 +1,6 @@
 package com.devin.rxjava_retrofit.http.okhttp;
 
 import com.devin.rxjava_retrofit.http.okhttp.https.CustomHttpsTrust;
-import com.devin.rxjava_retrofit.http.okhttp.interceptor.HeaderInterceptor;
 import com.devin.rxjava_retrofit.http.okhttp.interceptor.LoggingInterceptor;
 
 import java.util.concurrent.TimeUnit;
@@ -43,9 +42,9 @@ public class OkHttpHelper {
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-                .addInterceptor(new HeaderInterceptor()) //添加 header
+//                .addInterceptor(new HeaderInterceptor()) //添加 header
                 .addInterceptor(new LoggingInterceptor())  //请求信息的打印 ，可在 release 时关闭
-                .sslSocketFactory(customHttpsTrust.sSLSocketFactory, customHttpsTrust.x509TrustManager)// https 配置
+//                .sslSocketFactory(customHttpsTrust.sSLSocketFactory, customHttpsTrust.x509TrustManager)// https 配置
                 .build();
     }
 
