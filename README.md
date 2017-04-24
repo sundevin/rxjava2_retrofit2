@@ -1,4 +1,5 @@
 #### 根据 RxJava2 和 Retrofit2 进行的封装，进行网络请求更加方便。
+欢迎 star 和 issue
 具体使用见博客：http://www.jianshu.com/p/5c2b075584ad
 #### 目前实现:
 ###### 1，Restful 接口
