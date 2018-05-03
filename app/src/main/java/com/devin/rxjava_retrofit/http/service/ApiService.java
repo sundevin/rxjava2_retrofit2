@@ -2,7 +2,7 @@ package com.devin.rxjava_retrofit.http.service;
 
 
 import com.devin.rxjava_retrofit.entity.LogisticsInfo;
-import com.devin.rxjava_retrofit.http.result.HttpResponseResult;
+import com.devin.rxjava_retrofit.http.result.HttpRespResult;
 
 import java.util.List;
 import java.util.Map;
@@ -49,7 +49,7 @@ public interface ApiService {
      * @return
      */
     @GET("/muses-rest/java/rest/hotkeywordsearch/"+CHANEL)
-    Observable<HttpResponseResult<List<String>>> testGet2();
+    Observable<HttpRespResult<List<String>>> testGet2();
 
 
     /**
@@ -59,7 +59,7 @@ public interface ApiService {
      * @return
      */
     @POST("/muses-rest/java/rest/viewlogistics/"+CHANEL)
-    Observable<HttpResponseResult<LogisticsInfo>> getLogisticsInfo(@Body Map<String,Object> map);
+    Observable<HttpRespResult<LogisticsInfo>> getLogisticsInfo(@Body Map<String, Object> map);
 
 
 }

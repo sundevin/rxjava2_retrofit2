@@ -6,7 +6,7 @@ package com.devin.rxjava_retrofit.http.result;
  * <p>Created by Devin Sun on 2017/3/25.
  */
 
-public class HttpResponseResult<T> {
+public class HttpRespResult<T> {
 
     private static final int SUCCESS_STATUS = 1;
 

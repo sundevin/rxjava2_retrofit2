@@ -1,9 +1,9 @@
 package com.devin.rxjava_retrofit.http.rxjava.observer;
 
-import android.support.annotation.CallSuper;
 
-import com.devin.rxjava_retrofit.http.result.HttpResponseException;
-import com.devin.rxjava_retrofit.util.ToastUtils;
+import com.devin.rxjava_retrofit.http.result.HttpRespException;
+import com.devin.rxjava_retrofit.http.result.HttpRespResult;
+import com.devin.rxjava_retrofit.http.result.HttpRespStatus;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -11,46 +11,40 @@ import retrofit2.HttpException;
 
 /**
  * <p>Description:
- * <p>
- * <p>Created by Devin Sun on 2017/3/29.
+ * Created by Devin Sun on 2017/4/3.
  */
+public class BaseObserver<T> implements Observer<HttpRespResult<T>> {
 
-public abstract class BaseObserver<T> implements Observer<T> {
-
+    HttpRespException responseException;
 
     @Override
     public void onSubscribe(Disposable d) {
+
     }
 
     @Override
-    public void onNext(T t) {
-        onSuccess(t);
+    public void onNext(HttpRespResult<T> tHttpRespResult) {
+
     }
 
     @Override
     public void onError(Throwable e) {
 
-        HttpResponseException responseException;
         if (e instanceof HttpException) {
             HttpException httpException = (HttpException) e;
-            responseException = new HttpResponseException("网络请求出错", httpException.code());
-        } else if (e instanceof HttpResponseException) {
-            responseException = (HttpResponseException) e;
+            responseException = new HttpRespException(HttpRespStatus.DEFAULT_ERROR_MSG, httpException.code(), HttpRespStatus.DEFAULT_ERROR_CODE);
+        } else if (e instanceof HttpRespException) {
+            responseException = (HttpRespException) e;
         } else {//其他或者没网会走这里
-            responseException = new HttpResponseException("网络异常,请稍后重试", -1024);
+            responseException = new HttpRespException(HttpRespStatus.NETWORK_ERROR_MSG, HttpRespStatus.NETWORK_ERROR, HttpRespStatus.DEFAULT_ERROR_CODE);
         }
 
-        onFailed(responseException);
     }
 
     @Override
     public void onComplete() {
+
     }
 
-    protected abstract void onSuccess(T t);
 
-    @CallSuper
-    protected void onFailed(HttpResponseException responseException) {
-        ToastUtils.show(responseException.getMessage() + "(" + responseException.getStatus() + ")");
-    }
 }

@@ -9,17 +9,15 @@ import android.widget.Button;
 import com.devin.rxjava_retrofit.entity.LogisticsInfo;
 import com.devin.rxjava_retrofit.http.download.DownloadHelper;
 import com.devin.rxjava_retrofit.http.download.listener.DownloadListener;
-import com.devin.rxjava_retrofit.http.result.HttpResponseResult;
+import com.devin.rxjava_retrofit.http.result.HttpRespResult;
 import com.devin.rxjava_retrofit.http.rxjava.observable.DialogTransformer;
-import com.devin.rxjava_retrofit.http.rxjava.observable.ResultTransformer;
-import com.devin.rxjava_retrofit.http.rxjava.observable.SchedulerTransformer;
-import com.devin.rxjava_retrofit.http.rxjava.observer.BaseObserver;
+import com.devin.rxjava_retrofit.http.rxjava.observable.TransformerHelper;
+import com.devin.rxjava_retrofit.http.rxjava.observer.CommonObserver;
 import com.devin.rxjava_retrofit.http.service.manager.ServiceManager;
 import com.devin.rxjava_retrofit.util.Logger;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,9 +55,8 @@ public class MainActivity extends RxAppCompatActivity {
                 ServiceManager
                         .getApiService()
                         .testGet1()
-                        .compose(SchedulerTransformer.<String>transformer())//线程转换
                         .compose(MainActivity.this.<String>bindToLifecycle())//绑定生命周期，防止内存泄露
-                        .compose(new DialogTransformer(MainActivity.this).<String>transformer())//progressDialog
+                        .compose(new DialogTransformer(MainActivity.this).<String>showDialog())//progressDialog
                         .subscribe(new Observer<String>() {
                             @Override
                             public void onSubscribe(Disposable d) {
@@ -92,16 +89,17 @@ public class MainActivity extends RxAppCompatActivity {
                 ServiceManager
                         .getApiService()
                         .testGet2()
-                        .compose(MainActivity.this.<HttpResponseResult<List<String>>>bindToLifecycle())
-                        .compose(ResultTransformer.<List<String>>transformer())
-                        .compose(new DialogTransformer(MainActivity.this).<List<String>>transformer())
-                        .subscribe(new BaseObserver<List<String>>() {
+                        .compose(MainActivity.this.<HttpRespResult<List<String>>>bindToLifecycle())
+                        .compose(TransformerHelper.<List<String>>transformer())
+                        .compose(new DialogTransformer(MainActivity.this).<HttpRespResult<List<String>>>showDialog())
+                        .subscribe(new CommonObserver<List<String>>() {
                             @Override
-                            protected void onSuccess(List<String> stringList) {
-                                String[] str = stringList.toArray(new String[stringList.size()]);
-                                Logger.e(Arrays.toString(str));
+                            public void onSuccess(List<String> strings) {
+                                Logger.e(strings.toString());
                             }
                         });
+
+
             }
         });
 
@@ -117,14 +115,13 @@ public class MainActivity extends RxAppCompatActivity {
                 ServiceManager
                         .getApiService()
                         .getLogisticsInfo(map)
-                        .compose(MainActivity.this.<HttpResponseResult<LogisticsInfo>>bindToLifecycle())
-                        .compose(ResultTransformer.<LogisticsInfo>transformer())
-                        .compose(new DialogTransformer(MainActivity.this).<LogisticsInfo>transformer())
-                        .subscribe(new BaseObserver<LogisticsInfo>() {
+                        .compose(MainActivity.this.<HttpRespResult<LogisticsInfo>>bindToLifecycle())
+                        .compose(TransformerHelper.<LogisticsInfo>transformer())
+                        .compose(new DialogTransformer(MainActivity.this).<HttpRespResult<LogisticsInfo>>showDialog())
+                        .subscribe(new CommonObserver<LogisticsInfo>() {
                             @Override
-                            protected void onSuccess(LogisticsInfo logisticsInfo) {
+                            public void onSuccess(LogisticsInfo logisticsInfo) {
                                 Logger.e(logisticsInfo.toString());
-
                             }
                         });
             }

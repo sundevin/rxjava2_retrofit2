@@ -40,7 +40,7 @@ public class DialogTransformer {
         this.cancelable = cancelable;
     }
 
-    public <T> ObservableTransformer<T, T> transformer() {
+    public <T> ObservableTransformer<T, T> showDialog() {
         return new ObservableTransformer<T, T>() {
             private ProgressDialog progressDialog;
             @Override
